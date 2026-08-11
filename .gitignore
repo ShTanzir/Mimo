@@ -16,3 +16,6 @@ keystore.properties
 *.jks
 *.keystore
 keystore.properties
+*.jks
+*.keystore
+keystore.properties
