@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MIMO</string>
+    <string name="accessibility_service_description">MIMO uses this service to detect when a guarded app is opened, so it can close it automatically after your chosen delay. MIMO never reads or collects any personal content from other apps.</string>
+    <string name="notification_channel_countdown">MIMO Countdown</string>
+    <string name="notification_channel_general">MIMO Alerts</string>
+    <string name="notification_countdown_title">Closing soon</string>
+    <string name="notification_countdown_text">%1$s will close in %2$s</string>
+</resources>
