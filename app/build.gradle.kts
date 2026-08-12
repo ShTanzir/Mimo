@@ -1,6 +1,3 @@
-import java.util.Properties
-import java.io.FileInputStream
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -22,48 +19,10 @@ android {
         vectorDrawables { useSupportLibrary = true }
     }
 
-    // Reads keystore info either from a local `keystore.properties` file
-    // (for local builds) or from environment variables injected by
-    // GitHub Actions from repository secrets (for CI builds).
-    val keystorePropertiesFile = rootProject.file("keystore.properties")
-    val keystoreProperties = Properties()
-    val hasLocalKeystoreFile = keystorePropertiesFile.exists()
-    if (hasLocalKeystoreFile) {
-        keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-    }
-
-    fun prop(key: String, envKey: String): String? =
-        if (hasLocalKeystoreFile) keystoreProperties.getProperty(key)
-        else System.getenv(envKey)
-
-    val releaseStoreFilePath = prop("storeFile", "MIMO_STORE_FILE")
-    val releaseStorePassword = prop("storePassword", "MIMO_STORE_PASSWORD")
-    val releaseKeyAlias = prop("keyAlias", "MIMO_KEY_ALIAS")
-    val releaseKeyPassword = prop("keyPassword", "MIMO_KEY_PASSWORD")
-
-    val canSignRelease = !releaseStoreFilePath.isNullOrBlank() &&
-        !releaseStorePassword.isNullOrBlank() &&
-        !releaseKeyAlias.isNullOrBlank() &&
-        !releaseKeyPassword.isNullOrBlank()
-
-    signingConfigs {
-        if (canSignRelease) {
-            create("release") {
-                storeFile = file(releaseStoreFilePath!!)
-                storePassword = releaseStorePassword
-                keyAlias = releaseKeyAlias
-                keyPassword = releaseKeyPassword
-            }
-        }
-    }
-
     buildTypes {
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            if (canSignRelease) {
-                signingConfig = signingConfigs.getByName("release")
-            }
         }
         debug {
             isMinifyEnabled = false
@@ -102,6 +61,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
     implementation("androidx.activity:activity-compose:1.9.1")
 
+    // Compose BOM
     implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -110,12 +70,18 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
+    // Room
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
 
+    // DataStore for preferences
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+
+    // WorkManager (for boot reminder / periodic checks)
     implementation("androidx.work:work-runtime-ktx:2.9.1")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
