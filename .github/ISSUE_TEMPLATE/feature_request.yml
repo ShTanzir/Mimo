@@ -1,0 +1,37 @@
+name: 💡 Feature Request
+description: Suggest an idea for MIMO
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea? Check the [Roadmap](../../wiki/Roadmap) first to see if it's already planned.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What are you trying to do that MIMO doesn't support today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: What would you like to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered (optional)
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: A quick check
+      options:
+        - label: This doesn't require adding internet/network permissions
+        - label: This doesn't require reading screen content from other apps
