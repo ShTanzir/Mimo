@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -12,17 +15,55 @@ android {
         applicationId = "com.mimo.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.2.0"
+        versionCode = 1
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
+    }
+
+    // Reads keystore info either from a local `keystore.properties` file
+    // (for local builds) or from environment variables injected by
+    // GitHub Actions from repository secrets (for CI builds).
+    val keystorePropertiesFile = rootProject.file("keystore.properties")
+    val keystoreProperties = Properties()
+    val hasLocalKeystoreFile = keystorePropertiesFile.exists()
+    if (hasLocalKeystoreFile) {
+        keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+    }
+
+    fun prop(key: String, envKey: String): String? =
+        if (hasLocalKeystoreFile) keystoreProperties.getProperty(key)
+        else System.getenv(envKey)
+
+    val releaseStoreFilePath = prop("storeFile", "MIMO_STORE_FILE")
+    val releaseStorePassword = prop("storePassword", "MIMO_STORE_PASSWORD")
+    val releaseKeyAlias = prop("keyAlias", "MIMO_KEY_ALIAS")
+    val releaseKeyPassword = prop("keyPassword", "MIMO_KEY_PASSWORD")
+
+    val canSignRelease = !releaseStoreFilePath.isNullOrBlank() &&
+        !releaseStorePassword.isNullOrBlank() &&
+        !releaseKeyAlias.isNullOrBlank() &&
+        !releaseKeyPassword.isNullOrBlank()
+
+    signingConfigs {
+        if (canSignRelease) {
+            create("release") {
+                storeFile = file(releaseStoreFilePath!!)
+                storePassword = releaseStorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            if (canSignRelease) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
         debug {
             isMinifyEnabled = false
@@ -41,7 +82,6 @@ android {
 
     buildFeatures {
         compose = true
-        buildConfig = true
     }
 
     composeOptions {

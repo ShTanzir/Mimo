@@ -41,14 +41,15 @@ object NotificationHelper {
         context: Context,
         appLabel: String,
         remainingText: String,
-        progressPercent: Int
+        progressPercent: Int,
+        allowSnooze: Boolean = false
     ): android.app.Notification {
         val openAppIntent = Intent(context, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             context, 0, openAppIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-        return NotificationCompat.Builder(context, CHANNEL_COUNTDOWN)
+        val builder = NotificationCompat.Builder(context, CHANNEL_COUNTDOWN)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(context.getString(R.string.notification_countdown_title))
             .setContentText(
@@ -59,7 +60,17 @@ object NotificationHelper {
             .setOnlyAlertOnce(true)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .build()
+
+        if (allowSnooze) {
+            val snoozeIntent = Intent(SnoozeReceiver.ACTION_SNOOZE).setPackage(context.packageName)
+            val snoozePendingIntent = PendingIntent.getBroadcast(
+                context, 1, snoozeIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+            builder.addAction(0, "Snooze +1 min", snoozePendingIntent)
+        }
+
+        return builder.build()
     }
 
     fun notifyClosed(context: Context, appLabel: String) {

@@ -3,7 +3,9 @@ package com.mimo.app.ui.settings
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.mimo.app.repository.MimoRepository
 import com.mimo.app.util.Prefs
+import com.mimo.app.util.RulesBackup
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,6 +21,7 @@ data class SettingsUiState(
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val prefs = Prefs(application)
+    private val repository = MimoRepository.getInstance(application)
 
     private val _uiState = MutableStateFlow(SettingsUiState())
     val uiState: StateFlow<SettingsUiState> = _uiState.asStateFlow()
@@ -41,5 +44,17 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     fun setPin(pin: String?) {
         viewModelScope.launch { prefs.setPin(pin) }
+    }
+
+    suspend fun exportRulesJson(): String {
+        val rules = repository.getAllRules()
+        return RulesBackup.toJson(rules)
+    }
+
+    /** Returns how many rules were imported. Throws if [json] isn't a valid MIMO backup. */
+    suspend fun importRulesJson(json: String): Int {
+        val rules = RulesBackup.fromJson(json)
+        rules.forEach { repository.saveRule(it) }
+        return rules.size
     }
 }

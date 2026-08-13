@@ -64,4 +64,21 @@ object PermissionUtils {
         )
 
     fun notificationsPermissionRequired(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+
+    private fun notificationsGranted(context: Context): Boolean {
+        if (!notificationsPermissionRequired()) return true
+        return androidx.core.content.ContextCompat.checkSelfPermission(
+            context, android.Manifest.permission.POST_NOTIFICATIONS
+        ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+    }
+
+    /**
+     * The permissions MIMO cannot function without. Used to gate access to
+     * the app: as long as any of these is missing, MIMO keeps showing the
+     * Permissions screen instead of the app list.
+     */
+    fun allCriticalGranted(context: Context): Boolean =
+        isAccessibilityServiceEnabled(context) &&
+            canDrawOverlays(context) &&
+            notificationsGranted(context)
 }

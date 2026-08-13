@@ -14,6 +14,9 @@ interface AppRuleDao {
     @Query("SELECT * FROM app_rules ORDER BY createdAt DESC")
     fun observeAll(): Flow<List<AppRule>>
 
+    @Query("SELECT * FROM app_rules ORDER BY createdAt DESC")
+    suspend fun getAll(): List<AppRule>
+
     @Query("SELECT * FROM app_rules WHERE enabled = 1")
     suspend fun getEnabledRules(): List<AppRule>
 

@@ -24,7 +24,7 @@ APP_HOME=$( cd -P "${APP_HOME:-./}" > /dev/null && printf '%s\n' "$PWD" ) || exi
 APP_BASE_NAME=${0##*/}
 APP_NAME="Gradle"
 
-DEFAULT_JVM_OPTS="-Xmx64m -Xms64m"
+DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
 
 MAX_FD=maximum
 

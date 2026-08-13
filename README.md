@@ -1,6 +1,7 @@
 # MIMO — Mindful App Closer
 
 **Package:** `com.mimo.app`
+**Version:** 1.2.0
 **Language:** Kotlin (Jetpack Compose, Material 3)
 **Min SDK:** 26 · **Target SDK:** 34
 
@@ -97,3 +98,18 @@ Play Store বা production release-এর জন্য চাইলে GitHub 
 - **Ignore battery optimizations** — background-এ reliably চলার জন্য।
 
 সবকিছু local; কোনো ইন্টারনেট পারমিশন নেই, কোনো ডেটা বাইরে যায় না।
+
+## 🆕 v1.2.0-এ যা যোগ হয়েছে
+
+- 🖼️ **Custom app icon** — `assets/Mimo.png` রাখলেই CI build-এ সেটা থেকে সব density-র launcher icon অটোমেটিক জেনারেট হয় (`scripts/generate_icons.sh`, ImageMagick দিয়ে)। না রাখলে একটা ডিফল্ট light-green icon ব্যবহার হবে, বিল্ড কখনো ভাঙবে না।
+- 🔐 **Persistent permission gate** — critical permission (Accessibility, Overlay, Notification) কোনো একটা মিসিং থাকলে অ্যাপ প্রতিবার ওপেন/resume হওয়ার সময় Permissions screen-ই দেখাবে, প্রতিটা পারমিশনের পাশে "How?" ট্যাপ করলে ধাপে ধাপে instructions দেখাবে।
+- 🎨 **নতুন হালকা সবুজ (light green) + glass UI** — পুরো থিম রিডিজাইন করা হয়েছে, GlassCard-এ এখন হেয়ারলাইন বর্ডার + shadow যোগ হয়েছে।
+- 🔍 **Search icon toggle** — App List-এ এখন টগলযোগ্য সার্চ বার (আগে সবসময় দেখাত)
+- 📄 **About page** — অ্যাপ ভার্সন, প্রাইভেসি স্টেটমেন্ট, ব্যবহৃত টেক স্ট্যাক দেখা যাবে (Settings → About MIMO)
+- 🖥️ **Full-screen countdown warning** — শেষ ৫ সেকেন্ডে (বা delay-এর ৪০%, যেটা ছোট) পুরো স্ক্রিনে একটা warning overlay দেখাবে
+- ⏱️ **Notification + overlay থেকে Snooze (+1 min)** — প্রতি অ্যাপে একবার করে ব্যবহারযোগ্য
+- 📳 **Progressive haptic feedback** — শেষের দিকে vibration আরও ঘন ও তীব্র হয়
+- 💾 **Export/Import rules (JSON)** — Settings → Backup & restore থেকে
+- ⚡ **Focus Session (Pomodoro mode)** — App List-এর top bar থেকে চালু করলে, ফোন কল/SMS বাদে সব অ্যাপ সাথে সাথে বন্ধ হয়ে যাবে নির্দিষ্ট সময় ধরে
+- ✨ স্মুথ অ্যানিমেশন সব স্ক্রিন জুড়ে (fade/expand transitions)
+

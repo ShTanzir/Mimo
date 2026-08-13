@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.Mimo" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/mimo_moss</item>
-        <item name="android:windowBackground">@color/mimo_cream</item>
+        <item name="android:statusBarColor">@color/mimo_mint_deep</item>
+        <item name="android:windowBackground">@color/mimo_mint_pale</item>
     </style>
 </resources>

@@ -19,6 +19,8 @@ class MimoRepository private constructor(context: Context) {
 
     fun observeRules(): Flow<List<AppRule>> = ruleDao.observeAll()
 
+    suspend fun getAllRules(): List<AppRule> = ruleDao.getAll()
+
     fun observeRule(packageName: String): Flow<AppRule?> = ruleDao.observeRule(packageName)
 
     fun observeEnabledRuleCount(): Flow<Int> = ruleDao.observeEnabledCount()

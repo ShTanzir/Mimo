@@ -10,8 +10,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.NavType
+import com.mimo.app.ui.about.AboutScreen
 import com.mimo.app.ui.appdetail.AppDetailScreen
 import com.mimo.app.ui.applist.AppListScreen
+import com.mimo.app.ui.focus.FocusSessionScreen
 import com.mimo.app.ui.onboarding.OnboardingScreen
 import com.mimo.app.ui.permissions.PermissionsScreen
 import com.mimo.app.ui.settings.SettingsScreen
@@ -26,6 +28,8 @@ object Routes {
     const val APP_DETAIL = "app_detail/{packageName}"
     const val STATS = "stats"
     const val SETTINGS = "settings"
+    const val ABOUT = "about"
+    const val FOCUS_SESSION = "focus_session"
 
     fun appDetail(packageName: String) = "app_detail/$packageName"
 }
@@ -41,9 +45,8 @@ fun MimoNavGraph(startDestination: String) {
         composable(Routes.ONBOARDING) {
             OnboardingScreen(onFinished = {
                 scope.launch { prefs.setOnboardingDone(true) }
-                navController.navigate(Routes.PERMISSIONS) {
-                    popUpTo(Routes.ONBOARDING) { inclusive = true }
-                }
+                // MainActivity's permission gate takes over from here; no
+                // manual navigation needed once onboardingDone flips.
             })
         }
         composable(Routes.PERMISSIONS) {
@@ -57,8 +60,12 @@ fun MimoNavGraph(startDestination: String) {
             AppListScreen(
                 onAppClick = { pkg -> navController.navigate(Routes.appDetail(pkg)) },
                 onOpenStats = { navController.navigate(Routes.STATS) },
-                onOpenSettings = { navController.navigate(Routes.SETTINGS) }
+                onOpenSettings = { navController.navigate(Routes.SETTINGS) },
+                onOpenFocusSession = { navController.navigate(Routes.FOCUS_SESSION) }
             )
+        }
+        composable(Routes.FOCUS_SESSION) {
+            FocusSessionScreen(onBack = { navController.popBackStack() })
         }
         composable(
             Routes.APP_DETAIL,
@@ -73,8 +80,12 @@ fun MimoNavGraph(startDestination: String) {
         composable(Routes.SETTINGS) {
             SettingsScreen(
                 onBack = { navController.popBackStack() },
-                onOpenPermissions = { navController.navigate(Routes.PERMISSIONS) }
+                onOpenPermissions = { navController.navigate(Routes.PERMISSIONS) },
+                onOpenAbout = { navController.navigate(Routes.ABOUT) }
             )
+        }
+        composable(Routes.ABOUT) {
+            AboutScreen(onBack = { navController.popBackStack() })
         }
     }
 }
