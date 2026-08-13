@@ -1,21 +1,76 @@
-MIT License
+MIT License with Explicit Modding Permission
 
 Copyright (c) 2026 Tanzir
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+────────────────────────────────────────────────────────────────────────
+ADDITIONAL EXPLICIT PERMISSIONS — APK MODDING & REVERSE ENGINEERING
+────────────────────────────────────────────────────────────────────────
+
+This project is intentionally open for modding, decompiling, and
+reverse engineering, in addition to the rights already granted above.
+For the avoidance of doubt, and to make this explicit for anyone
+reading the license before modifying a compiled APK build of this
+software, the following is expressly permitted without seeking further
+permission from the copyright holder:
+
+1. DECOMPILING & DISASSEMBLING
+   You may decompile, disassemble, or otherwise reverse engineer any
+   compiled APK/AAB build of this Software using any tool, including
+   but not limited to MT Manager, APKTool, jadx, JEB, Ghidra,
+   dex2jar, Smali/Baksmali, or any similar tool — for any purpose,
+   including study, modification, translation, rebranding, or
+   personal use.
+
+2. MODIFYING & REPACKAGING
+   You may modify the decompiled or disassembled resources, Smali/DEX
+   bytecode, layouts, strings, drawables, or any other component of
+   the compiled app, and repackage/re-sign it under a different
+   application ID, package name, or app label.
+
+3. REDISTRIBUTING MODIFIED BUILDS
+   You may redistribute a modified build (a "mod" or "fork") in
+   binary (APK/AAB) or source form, provided that:
+     a. You clearly indicate that your version is modified and is
+        not the original, unmodified release from this repository;
+     b. You retain this license file (or a copy of it) with your
+        redistributed version, unmodified in substance; and
+     c. You do not use the name "MIMO" or the original app icon in a
+        way that falsely implies your modified version is the
+        official, unmodified release, unless clearly labeled as a
+        "mod," "fork," or "unofficial build."
+
+4. NO WARRANTY ON MODIFIED BUILDS
+   Any modified build is entirely the responsibility of whoever
+   produced it. The original author(s) of this Software provide no
+   support, warranty, or guarantee of safety, correctness, or fitness
+   for any modified/repackaged version, whether or not it was built
+   from this source code.
+
+5. TRADEMARK / BRANDING NOTE (NON-COPYRIGHT)
+   This permission covers copyright only. It does not grant rights to
+   use the "MIMO" name or logo to imply official endorsement of a
+   modified build. You are free to fork, rebrand, and redistribute
+   under a different name and icon at any time.
+
+In short: fork it, decompile it, mod it, rebrand it, learn from it —
+just don't pretend an unofficial modified build is the original
+release, and keep this license file attached.
