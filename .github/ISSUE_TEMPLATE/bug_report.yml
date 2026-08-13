@@ -1,0 +1,77 @@
+name: 🐛 Bug Report
+description: Something isn't working as expected
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out as much detail as you can — it makes fixing this much faster.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+      placeholder: MIMO didn't close Instagram after the timer ran out.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Set a 1-minute timer on Instagram
+        2. Open Instagram
+        3. Wait 1 minute
+        4. App doesn't close
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      placeholder: e.g. Xiaomi Redmi Note 12, Pixel 7
+    validations:
+      required: true
+
+  - type: input
+    id: android-version
+    attributes:
+      label: Android version
+      placeholder: e.g. Android 13
+    validations:
+      required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: MIMO version
+      placeholder: e.g. v1.2.0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: permissions
+    attributes:
+      label: Permissions
+      description: Confirm these are enabled (most bugs trace back to one of these)
+      options:
+        - label: Accessibility Service is enabled for MIMO
+        - label: "Display over other apps" is enabled
+        - label: Battery optimization is disabled/ignored for MIMO
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots (optional)
+      description: If you can grab a logcat or a screenshot, attach it here.
